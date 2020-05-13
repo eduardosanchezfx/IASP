@@ -20,6 +20,14 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-list-ul"></i> Lista de Productos</h3>
+        <div class="card-tools">
+            <a href="/Crear_Producto" class="btn btn-tool btn-sm" data-toggle="tooltip" data-placement="top" title="Crear Producto">
+                <i class="fas fa-plus-circle"></i>
+            </a>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" data-placement="top" title="Minimizar">
+                 <i class="fas fa-minus"></i>
+             </button>
+        </div>
       </div>
       <!-- /.card-header -->
       <div class="card-body">  
@@ -47,13 +55,22 @@
             <td>{{$productos->created_at}}</td>
             <td>{{$productos->updated_at}}</td>
             <td>
-              <div class="row">
-                <a href="{{ route('Productos.edit',$productos->id)}}" class="btn btn-outline-warning"><i class="far fa-edit"></i></a>
+              <div class="row justify-content-center">
+                  @if($productos->deleted_at==null)
+                <a href="{{ route('Productos.edit',$productos->id)}}" class="btn btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Editar {{$productos->Nombre}}"><i class="far fa-edit"></i></a>
                 <form method="post" action="{{url('Productos/'.$productos->id)}}">
                 @csrf
                  {{method_field('DELETE')}}
-              <button type="submit" onclick="return confirm('¿Deseas Eliminar?')" class="btn  btn-outline-danger"><i class="fas fa-trash"></i></button>
+              <button type="submit" onclick="return confirm('¿Deseas Eliminar?')" class="btn  btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Eliminar {{$productos->Nombre}}"><i class="fas fa-trash"></i></button>
               </form>
+                @endif
+                @if($productos->deleted_at!=null)
+                <a href="{{ route('Productos.edit', $productos->id) }}" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Restaurar a {{$productos->Nombre}}"><i class="fas fa-trash-restore"></i></a>
+                <form method="post" action="{{url('Productos/'.$productos->id)}}">
+                @csrf
+                 {{method_field('DELETE')}}
+              <button type="submit" onclick="return confirm('¿Deseas Eliminar?, ya que será permanente esta acción')" class="btn  btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Eliminar a {{$productos->Nombre}} Permanetemente"><i class="fas fa-trash"></i></button>
+                @endif
               </div>
             </td>
           </tr>

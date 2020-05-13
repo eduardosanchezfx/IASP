@@ -39,7 +39,7 @@
       
                       <div class="timeline-body">
                         <div class="row">
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-3 form-group">
                               <label>Nombre del producto:</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">
@@ -50,7 +50,7 @@
                               <!-- /.input group -->
                             </div>
                             <!-- /.form-group -->
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-3 form-group">
                               <label>Descripcion breve:</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">
@@ -61,22 +61,30 @@
                               <!-- /.input group -->
                             </div>
                             <!-- /.form-group -->
-                            <!-- /.form-group -->
-                            <div class="col-md-4 form-group">
-                              <label>Stock:</label>
+                            <div class="col-md-3 form-group">
+                              <label>Stock Inicial:</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                 </div>
-                              <input type="number" class="form-control" required value="{{$item->StockTotal}}" name="StockTotal" id="StockTotal">
+                              <input type="number" class="form-control" value="{{$item->StockTotal}}" readonly name="stockinit">
+                              </div>
+                              <!-- /.input group -->
+                            </div>
+                            <!-- /.form-group -->
+                            <!-- /.form-group -->
+                            <div class="col-md-3 form-group">
+                              <label>Agregar:</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                </div>
+                              <input type="number" class="form-control" required  name="StockTotal" id="StockTotal">
                               </div>
                               <!-- /.input group -->
                             </div>
                             <!-- /.form-group -->
                             </div>
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-sm" onclick="continuar('e1')">Siguiente paso</a>
                       </div>
                     </div>
                   </div>

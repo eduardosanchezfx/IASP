@@ -89,7 +89,7 @@ class asignarAlmacenesController extends Controller
     {
         $almacenes= almacen::find($request->number_id); //inserta el id del almacen en la tabla pivote
         $almacenes->users()->sync($request->empleados); //inserta los usuarios que registraron no repetidos
-        return redirect('/Lista_Almacen')->with('success','Asignacion Correcta');
+        return back()->with('success','Asignacion Correcta');
     }
 
     /**

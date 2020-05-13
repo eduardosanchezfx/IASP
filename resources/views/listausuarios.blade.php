@@ -84,28 +84,12 @@
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.js"></script>
 <!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="plugins/datatables-responsive/js/dataTables.responsive.js"></script>
-<script src="plugins/datatables-responsive/js/responsive.bootstrap4.js"></script>
+<script src="{{ URL::asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{ URL::asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+<script src="{{ URL::asset('plugins/datatables-responsive/js/dataTables.responsive.js')}}"></script>
+<script src="{{ URL::asset('plugins/datatables-responsive/js/responsive.bootstrap4.js')}}"></script>
+<script src="js/script.js"></script>
 
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": true,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true,
-    });
-  });
-</script>
 
 <script type="text/javascript">
   $(function() {

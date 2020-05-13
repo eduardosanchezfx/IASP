@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlmacenProductTable extends Migration
+class CreateStoragesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateAlmacenProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('almacen_product', function (Blueprint $table) {
+        Schema::create('storages', function (Blueprint $table) {
             $table->id();
-            $table->float('stock'); 
-            $table->float('precio');
+             $table->string('stock'); 
+             $table->string('stockinit'); 
             $table->timestamps();
             $table->softDeletes();
              $table->biginteger('almacen_id')->unsigned();
@@ -33,6 +33,6 @@ class CreateAlmacenProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('almacen_product');
+        Schema::dropIfExists('storages');
     }
 }

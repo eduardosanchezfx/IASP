@@ -4,14 +4,8 @@
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-sm-12 text-center">
           <h1>Editar Usuario</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Timeline</li>
-          </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -30,7 +24,7 @@
           <div class="timeline">
             <!-- timeline time label -->
             <div class="time-label">
-              <span class="bg-info">Formulario</span>
+              <span class="bg-info">Editar Usuario(Editar los campos a cambiar)</span>
             </div>
             <!-- /.timeline-label -->
             <!-- timeline item -->
@@ -49,7 +43,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-id-card"></i></span>
                           </div>
-                          <input type="text" class="form-control" required name="name" id="name" value="{{$user->name}}">
+                          <input type="text" class="form-control" name="name" id="name" value="{{$user->name}}">
                         </div>
                         <!-- /.input group -->
                       </div>
@@ -60,15 +54,12 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                           </div>
-                          <input type="mail" class="form-control" required value="{{$user->email}}" name="mail" id="mail">
+                          <input type="mail" class="form-control" value="{{$user->email}}" name="mail" id="mail">
                         </div>
                         <!-- /.input group -->
                       </div>
                       <!-- /.form-group -->
                       </div>
-                </div>
-                <div class="timeline-footer">
-                  <a class="btn btn-primary btn-sm" onclick="continuar('e1')">Siguiente paso</a>
                 </div>
               </div>
             </div>
@@ -78,7 +69,7 @@
               <i class="fas fa-user-shield bg-warning"></i>
               <div class="timeline-item">
                 <span class="time"><i class=""></i> Paso 2 de 3</span>
-                <h3 class="timeline-header no-border"><a class="text-warning" href="#">Seguridad</a></h3>
+                <h3 class="timeline-header no-border"><a class="text-warning" href="#">Seguridad (Editar los dos campos si se quiere cambiar contraseña)</a></h3>
                 <div class="timeline-body">
                   <div class="row">
                       <div class="col-md-6 form-group">
@@ -88,7 +79,7 @@
                             <span class="input-group-text"><i class="fa fa-key"></i></span>
                           </div>
                            
-                        <input type="passsword" class="form-control" required value="" name="password" id="password">
+                        <input type="passsword" class="form-control" value="" name="password" id="password">
                         </div>
                         <!-- /.input group -->
                       </div>
@@ -99,15 +90,12 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-key"></i></span>
                           </div>
-                          <input type="password" class="form-control" required placeholder="">
+                          <input type="password" class="form-control" placeholder="">
                         </div>
                         <!-- /.input group -->
                       </div>
                       <!-- /.form-group -->
                       </div>
-                </div>
-                <div class="timeline-footer">
-                  <a class="btn btn-primary btn-sm" onclick="continuar('e3')">Siguiente paso</a>
                 </div>
               </div>
               
@@ -136,7 +124,7 @@
                                                 $text='Administrador';
                                             }
                           if($user->level=='M'){
-                              $text='Mortal';
+                              $text='Empleado';
                           }?>
                       <option value="{{$user->level}}" selected>Selecciono: {{$text}}</option>
                         <option value="S">Super Administrador</option>

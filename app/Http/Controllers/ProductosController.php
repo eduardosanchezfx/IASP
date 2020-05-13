@@ -56,6 +56,7 @@ class ProductosController extends Controller
         $productos->Precio=$request->precio;
         $productos->unidad=$request->unidad;
         $productos->tipo_moneda=$request->divisa;
+        $productos->StockInicial=$request->StockTotal;
         $productos->save();
         return redirect('/Lista_producto')->with('success','Producto Creado correctamente');
 
@@ -82,10 +83,24 @@ class ProductosController extends Controller
     public function edit($productos)
     {
         $contador= new ContadorController;
-        $p=DB::table('products')
+        $check=DB::table('products')
         ->where('id','=',$productos)
         ->get();
-        return view('productos.edit',['productos'=>$productos,'p'=>$p,'contador'=>$contador]);
+         foreach($check as $ch){
+            if($ch->deleted_at!=null){
+                $productos = \App\product::withTrashed()->where('id', '=', $productos)->first();
+                //Restauramos el registro
+                $productos->restore();
+                return back()->with('success','Se ha recuperado correctamente');
+            }
+            else{
+                $p= DB::table('products')
+                ->where('id','=',$productos)
+                ->get();
+   
+             return view('productos.edit',['productos'=>$productos,'p'=>$p,'contador'=>$contador]); 
+            }
+         }
     }
 
     /**
@@ -97,13 +112,16 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $p)
     {
+                     
         $productos= product::findOrFail($p);
         $productos->Nombre=$request->nombre_producto;
         $productos->Descripcion=$request->descripcion;
-        $productos->StockTotal=$request->StockTotal;
+        $productos->StockTotal=($request->StockTotal)+($request->stockinit);
+        $productos->StockInicial=($request->StockTotal)+($request->stockinit);
         $productos->Precio=$request->precio;
         $productos->unidad=$request->unidad;
         $productos->update();
+         return redirect('/Lista_producto')->with('success','Producto actualizado correctamente');
     }
 
     /**
@@ -114,7 +132,22 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        product::destroy($id);
-        return redirect('Lista_producto')->with('success','Se ha eliminado correctamente');
+        $check=DB::table('products')
+        ->where('id','=',$id)
+        ->get();
+         foreach($check as $ch){
+        if($ch->deleted_at!=null){
+            product::destroy($id);
+                return redirect('Lista_producto')->with('success','Se ha eliminado correctamente');
+            }
+         else{
+                product::destroy($id);
+             return redirect('Lista_producto')->with('success','Se ha eliminado correctamente');
+            }
+        }
+    }
+    public function adicionar($id)
+    {
+         
     }
 }

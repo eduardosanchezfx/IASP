@@ -11,15 +11,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\almacen_user;
 
-
-class AlmacenesController extends Controller
+class TiendaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
+     public function __construct()
      {
             $this->middleware('auth');
             $this->middleware('SuperMiddleware')->except('index');
@@ -33,20 +32,20 @@ class AlmacenesController extends Controller
         $userid=Auth::user()->id;//encuentra id usuario autenticado
         if($auth=='S'){
         $almacenes=DB::table('almacens')
-                ->where('tipo','S')
+                ->where('tipo','T')
                 ->join('users','users.id','almacens.encargado_id')
                 ->select('almacens.*','users.name as username')
          ->get();
-        return view('almacenes.read',['almacenes'=>$almacenes,'contador'=>$contador]);
+        return view('tiendas.read',['almacenes'=>$almacenes,'contador'=>$contador]);
          }
          if($auth=='A'){
              $almacenes=DB::table('almacens')
-                ->where('tipo','S')
+                ->where('tipo','T')
                 ->where('encargado_id',$userid)
                 ->join('users','users.id','almacens.encargado_id')
                 ->select('almacens.*','users.name as username')
                 ->get();
-             return view('almacenes.read',['almacenes'=>$almacenes,'contador'=>$contador]);
+             return view('tiendas.read',['almacenes'=>$almacenes,'contador'=>$contador]);
          }
          if($auth=='M'){
              $consulta= User::find($userid);
@@ -54,13 +53,13 @@ class AlmacenesController extends Controller
              for($i=0;$i<count($almacen);$i++){
               $almacenes=DB::table('almacens')
                 ->whereIn('almacens.id',$almacen)
-                ->where('tipo','S')
+                ->where('tipo','T')
                 ->join('users','users.id','almacens.encargado_id')
                 ->select('almacens.*','users.name as username')
                 ->get();
               
              }
-            return view('almacenes.read',['almacenes'=>$almacenes,'contador'=>$contador]);   
+            return view('tiendas.read',['almacenes'=>$almacenes,'contador'=>$contador]);   
          }
                      
         
@@ -81,7 +80,7 @@ class AlmacenesController extends Controller
                     ->where('level','!=','M')
                     ->get();
         $date = carbon::now()->format('Y_d_m_h_i');
-        return view('almacenes.create',['contador'=>$contador,'date'=>$date,'usuarios'=>$usuarios,'usuariosm'=>$usuariosm]);
+        return view('tiendas.create',['contador'=>$contador,'date'=>$date,'usuarios'=>$usuarios,'usuariosm'=>$usuariosm]);
     }
 
     /**
@@ -93,7 +92,7 @@ class AlmacenesController extends Controller
     public function store(Request $request)
     {
                 $almacenes= new almacen();
-                $almacenes->tipo='S';
+                $almacenes->tipo='T';
                 $almacenes->numero_almacen=$request->number_id;
                 $almacenes->nombre=$request->name;
                 $almacenes->estado=$request->estado;
@@ -104,7 +103,7 @@ class AlmacenesController extends Controller
                 $almacenes->encargado_id=$request->usuario_admin;
                 $almacenes->save();
 
-        return redirect('Lista_Almacen')->with('success','Almacen Creado correctamente');
+        return redirect('Lista_Tienda')->with('success','Tienda Creado correctamente');
     }
 
     /**
@@ -151,7 +150,7 @@ class AlmacenesController extends Controller
                         ->whereNotIn('id',(array)$chkdsk)
                         ->where('level','=','A')
                         ->get();
-            return view('almacenes.edit',['almacen'=>$almacen,'al'=>$al,'contador'=>$contador,'usr'=>$usr]); 
+            return view('tiendas.edit',['almacen'=>$almacen,'al'=>$al,'contador'=>$contador,'usr'=>$usr]); 
             }
 
         }
@@ -176,7 +175,7 @@ class AlmacenesController extends Controller
         $almacens->codigo_postal=$request->acp;
         $almacens->encargado_id=$request->uid;
         $almacens->save();
-        return redirect('/Lista_Almacen')->with('success','Almacen Actualizado Correctamente');
+        return redirect('/Lista_Tienda')->with('success','Tienda Actualizado Correctamente');
     }
 
     /**
@@ -193,23 +192,12 @@ class AlmacenesController extends Controller
         foreach($check as $ch){
         if($ch->deleted_at!=null){
             almacen::where('id',$id)->forceDelete();
-            return redirect('Lista_Almacen')->with('success','Se ha eliminado permanentemente');
+            return redirect('Lista_Tienda')->with('success','Se ha eliminado permanentemente');
         }
         else{
         almacen::destroy($id);
-        return redirect('Lista_Almacen')->with('success','Se ha eliminado correctamente');
+        return redirect('Lista_Tienda')->with('success','Se ha eliminado correctamente');
         }
         }
     }
-    public function pdfgenerator(){
-        $almacenes=DB::table('almacens')
-                ->where('tipo','S')
-         ->get();
-        $pdf = \PDF::loadView('ejemplo', compact('almacenes'));
-              return $pdf->stream('almacenes.pdf');
-        
-         
-     
-        }
-    
 }

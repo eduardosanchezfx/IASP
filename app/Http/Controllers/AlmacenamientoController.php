@@ -9,7 +9,8 @@ use App\almacen;
 use App\Http\Controllers\ContadorController;
 use App\almacen_product;
 use App\almacen_user;
-
+use App\storage;
+use Carbon\Carbon;
 class AlmacenamientoController extends Controller
 {
     /**
@@ -49,7 +50,13 @@ class AlmacenamientoController extends Controller
                     ->join('users','users.id','almacens.encargado_id')
                     ->select('users.name as uname','almacens.id as aid','almacens.nombre as anombre','almacens.numero_almacen as anumero')
                     ->get();
-      return view('almacenamientos.create',['contador'=>$contador,'products'=>$products,'almacens'=>$almacens]);
+     $storage=DB::table('storages')
+             ->where('almacen_id',$almacen)
+             ->join('almacens','almacens.id','storages.almacen_id')
+             ->join('products','products.id','storages.product_id')
+             ->select('products.Nombre as pname','products.StockTotal as pstock','products.unidad as punidad','products.tipo_moneda as pmoneda','storages.stock as sstock','products.precio as pprecio','storages.created_at as screated','storages.updated_at as supdated','storages.deleted_at as sdeleted','storages.id as id')
+             ->get();
+      return view('almacenamientos.create',['contador'=>$contador,'products'=>$products,'almacens'=>$almacens,'storage'=>$storage]);
           
     }
 
@@ -61,25 +68,29 @@ class AlmacenamientoController extends Controller
      */
     public function store(Request $request)
     {
-        //dd((array)$request->productoid ,(array)$request->agregar);
-        $array1=(array)$request->agregar;
-        $array2=(array)$request->productoid;
-        //dd($array2);
-       /* dd($array1);
-        for($i=0;$i<count($array2);$i++){
-        $array3=array_fill(0, count($request->agregar), ['StockAlmacen' =>$array2[$i]]);
+        $carbon = new \Carbon\Carbon();
+        $date = $carbon->now();
+        $consuta= DB::table('products')->where('id','=',$request->product_id)
+                ->get();
+        foreach($consuta as $consulta){
+        $validator=$request->validate([
+            'stock'=>'numeric|required|min:1|max:'.$consulta->StockTotal
+        ]);
         }
-        $combinar=array_combine($array1,$array3);*/
-        $almacenes=new almacen_product();
-        $almacenes->StockAlmacen=$array2;
-        
-        $almacenes= almacen::find($request->number_id);
-        $almacenes->almacenInProducts()->sync(1);
-        $almacenes->save();
-        
-        
-
-        return redirect('/Lista_Almacen')->with('success','Asignacion de producto a almacen correctamente');
+            DB::table('storages')->insert(['almacen_id'=>$request->almacen_id,'product_id'=>$request->product_id,'stock'=>$request->stock,'stockinit'=>$request->stock,'created_at'=> $date,'updated_at'=>$date]);
+           /* $store=storage::findOrFail($request->product_id);
+            $store->producto()->create([
+                'stock'=>$request->stock,
+                'almacen_id'=>$request->almacen_id
+            ]);*/
+            $updatep=DB::table('products')->where('id','=',$request->product_id)->get();
+                     foreach($updatep as $u){
+                         DB::table('products')->where('id','=',$u->id)->update(['StockTotal'=>($u->StockTotal)-($request->stock)]);
+                     }
+                     
+            return response()->json([
+            'success'=>true,  
+        ]);
     }
 
     /**
@@ -101,7 +112,32 @@ class AlmacenamientoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contador= new ContadorController;
+        $check=DB::table('storages')
+                ->where('id','=',$id)
+                ->get();
+        foreach($check as $ch){
+        if($ch->deleted_at!=null){
+           $restore= storage::where('id',$id)->withTrashed();
+           $restore->restore();
+            return back()->with('success','Se ha restablecido permanentemente');
+        }
+        if($ch->deleted_at==null){
+            $almacens=DB::table('almacens')
+                    ->where('almacens.id',$id)
+                    ->join('users','users.id','almacens.encargado_id')
+                    ->select('users.name as uname','almacens.id as aid','almacens.nombre as anombre','almacens.numero_almacen as anumero')
+                    ->get();
+     $storage=DB::table('storages')
+             ->where('almacen_id',$id)
+             ->join('almacens','almacens.id','storages.almacen_id')
+             ->join('products','products.id','storages.product_id')
+             ->select('products.Nombre as pname','products.StockTotal as pstock','products.unidad as punidad','products.tipo_moneda as pmoneda','storages.stock as sstock','products.precio as pprecio','storages.created_at as screated','storages.updated_at as supdated','storages.deleted_at as sdeleted','storages.id as id')
+             ->get();
+            return view('almacenamientos.edit',['contador'=>$contador,'almacens'=>$almacens,'storage'=>$storage]);
+        }
+        }
+        
     }
 
     /**
@@ -124,6 +160,22 @@ class AlmacenamientoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $check=DB::table('storages')
+                ->where('id','=',$id)
+                ->get();
+        foreach($check as $ch){
+        if($ch->deleted_at!=null){
+            $updatep=DB::table('products')->where('id','=',$ch->product_id)->get();
+                     foreach($updatep as $u){
+                         DB::table('products')->where('id','=',$ch->product_id)->update(['StockTotal'=>($u->StockTotal)+($ch->stock)]);
+                     }
+            storage::where('id',$id)->forceDelete();
+            return back()->with('success','Se ha eliminado permanentemente');
+        }
+        else{
+            storage::destroy($id);
+             return back()->with('success','Se ha eliminado correctamente');
+            }
+                                }
     }
 }

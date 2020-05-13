@@ -103,18 +103,18 @@
               <p>
                 Tiendas
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                <span class="badge badge-info right">{{$contador->contadorTiendas}}</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="Lista_Tienda" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Administrar Tiendas</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="Crear_Tienda" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Tienda</p>
                 </a>

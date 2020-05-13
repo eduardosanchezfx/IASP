@@ -164,6 +164,12 @@ class ListasuariosController extends Controller
             }
                                 }
         }
-
+        
+        public function pdfgenerator(){
+            $user=DB::table('users')
+            ->get();
+        $pdf = \PDF::loadView('listausuarios.app', compact('user'));
+     return $pdf->stream('usuarios.pdf');
+        }
     
 }

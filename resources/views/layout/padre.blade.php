@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   <link  rel="icon"   href="{{ URL::asset('dist/img/logo.png')}}" type="image/png" /> 
      <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +48,6 @@
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==')}}"
   crossorigin=""/>  
   @yield('css') 
-    
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -120,41 +120,10 @@
 <!-- jsGrid -->
 <script src="{{ URL::asset('plugins/jsgrid/demos/db.js')}}"></script>
 <script src="{{ URL::asset('plugins/jsgrid/jsgrid.min.js')}}"></script>
-<!-- Page script -->
+<!--manual scripts-->
+<script src="{{ URL::asset('js/script.js')}}"></script>
+
 <script>
-  $('.select2').select2();
-   var table = $('#example1').DataTable({
-      'paging'      : true,
-      'lengthChange': true,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true,
-      buttons: [
-        'copy', 'print', 'excel', 'pdf'
-    ],
-      language: {
-        "decimal": "",
-        "emptyTable": "No hay información",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ Entradas",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-       }
-       
-    });
 </script>
 <script type="text/javascript">
 
@@ -190,27 +159,11 @@
     $(document).ready(function(){
    $("a").live('click', function() {
       url = $(this).attr("href");
-      window.open(url, '_blank');
+      window.open(url, '_blank',"width=465,height=665,scrollbars=NO");
+      
       return false;
    });
 });
     </script>
-        <script>
-          $('.datepicker').datepicker({
-                  format: "dd/mm/yyyy",
-                  language: "es",
-                  autoclose: true
-              });
-          </script>
-          <script type="text/javascript">
-            $(document).ready(function(){
-               $("a.editar").click(function() {
-                  url = $(this).attr("href");
-                  window.open(url, '_blank','width=400,height=400,resizable=false');
-                  return false;
-               });
-            });
-            </script>
-
 </body>
 </html>

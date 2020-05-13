@@ -11,12 +11,22 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    <section class="content">
       <div class="row">
         <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title sm-right"><i class="fas fa-list-ul"></i>Usuarios</h3>
+        <h3 class="card-title sm-right"><i class="fas fa-list-ul"></i> Usuarios</h3>
+        <div class="card-tools">
+            <a id="popover" data-toggle="tooltip" data-placement="left" title="Agregar Usuarios" href="/Crear_Usuario" class="btn btn-tool btn-sm">
+                <i class="fas fa-user-plus"></i>
+            </a>
+             <a id="popover" data-toggle="tooltip" data-placement="left" title="Crear PDF" href="/pdf" class="btn btn-tool btn-sm">
+                <i class="fas fa-file-pdf"></i>
+            </a>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" data-placement="top" title="Minimizar">
+                 <i class="fas fa-minus"></i>
+             </button>
+        </div>
       </div>
       <!-- /.card-header -->
       <div class="card-body">  
@@ -55,20 +65,20 @@
 
             
             <td>
-              <div class="row">
+              <div class="row justify-content-center">
                 @if(($usuarios->deleted_at)!=null)
-                <a href="{{ route('Lista_Usuarios.edit', $usuarios->id) }}" class="btn btn-outline-success" ><i class="fas fa-trash-restore"></i></a>
+                <a href="{{ route('Lista_Usuarios.edit', $usuarios->id) }}" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Restaurar a {{$usuarios->name}}"><i class="fas fa-trash-restore"></i></a>
                 <form method="post" action="{{url('Lista_Usuarios/'.$usuarios->id)}}">
                 @csrf
                  {{method_field('DELETE')}}
-              <button type="submit" onclick="return confirm('¿Deseas Eliminar?, ya que será permanente esta acción')" class="btn  btn-outline-danger"><i class="fas fa-trash"></i></button>
+              <button type="submit" onclick="return confirm('¿Deseas Eliminar?, ya que será permanente esta acción')" class="btn  btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Eliminar a {{$usuarios->name}} Permanetemente"><i class="fas fa-trash"></i></button>
             @endif
             @if($usuarios->deleted_at==null)
-            <a href="{{ route('Lista_Usuarios.edit',$usuarios->id)}}" id="editar" class="btn btn-outline-warning editar"><i class="fas fa-user-edit"></i></a>
+            <a href="{{ route('Lista_Usuarios.edit',$usuarios->id)}}" id="editar" class="btn btn-outline-warning editar" data-toggle="tooltip" data-placement="top" title="Editar a {{$usuarios->name}}"><i class="fas fa-user-edit"></i></a>
             <form method="post" action="{{url('Lista_Usuarios/'.$usuarios->id)}}">
                 @csrf
                  {{method_field('DELETE')}}
-              <button type="submit" onclick="return confirm('¿Deseas Eliminar?')" class="btn  btn-outline-danger"><i class="fas fa-trash"></i></button>
+              <button type="submit" onclick="return confirm('¿Deseas Eliminar?')" class="btn  btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Eliminar a {{$usuarios->name}}"><i class="fas fa-trash"></i></button>
             @endif 
                 
                 
@@ -86,7 +96,6 @@
     <!-- /.card -->
   </div>
       </div>
-    </section>
     <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
       <i class="fas fa-chevron-up"></i>
     </a>

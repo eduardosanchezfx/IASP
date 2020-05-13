@@ -1,19 +1,14 @@
 <?php
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
-use App\almacen;
-
 use Illuminate\Database\Eloquent\SoftDeletes; //línea necesaria
+use App\product;
 
-class product extends Model
+class storage extends Model
 {
     use SoftDeletes; //Implementamos 
     protected $dates = ['deleted_at']; //Registramos la nueva columna
-    
-    public function almacen()
-    {
-        return $this->belongsToMany(almacen::class,'almacen_product');
-    }
+    protected $fillable = ['stock','precio','almacen_id','product_id'];
 }

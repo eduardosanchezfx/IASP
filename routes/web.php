@@ -23,15 +23,22 @@ Route::get('/Crear_Producto', 'ProductosController@create');
 Route::get('/Lista_producto', 'ProductosController@index');
 Route::get('/Crear_Almacen', 'AlmacenesController@create');
 Route::get('/Lista_Almacen', 'AlmacenesController@index');
+Route::get('/Almacenpdf','AlmacenesController@pdfgenerator');
+Route::get('/Crear_Tienda', 'TiendaController@create');
+Route::get('/Lista_Tienda', 'TiendaController@index');
+Route::get('/pdf','ListasuariosController@pdfgenerator');
 Route::get('/Asignar/{almacen}' ,'asignarAlmacenesController@create')->name('Asignarcreate');
 Route::get('/Lista_Almacenamiento', 'AlmacenamientoController@index');
 Route::get('/Almacenamiento/{almacen}' ,'AlmacenamientoController@create')->name('Almacenamientocreate');
 
 
 
+
 //routes resource
 Route::resource('/Lista_Usuarios', 'ListasuariosController');
-Route::resource('Productos', 'ProductosController');
-Route::resource('Almacenes', 'AlmacenesController');
-Route::resource('Asignar', 'asignarAlmacenesController');
-Route::resource('Almacenamiento', 'AlmacenamientoController');
+Route::resource('/Productos', 'ProductosController');
+Route::resource('/Almacenes', 'AlmacenesController');
+Route::resource('/Asignar', 'asignarAlmacenesController');
+Route::resource('/Almacenamiento', 'AlmacenamientoController');
+Route::resource('/Tiendas', 'TiendaController');
+

@@ -1,10 +1,5 @@
 @extends('layout.padre')
 @section('css')
-     <!--Api de mapas-->
-  <link rel="stylesheet" href="{{ URL::asset('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==')}}"
-  crossorigin=""/>  
-    <!-- DataTables -->
   <link rel="stylesheet" href="{{ URL::asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
   <link rel="stylesheet" href="{{ URL::asset('plugins/datatables-responsive/css/responsive.bootstrap4.css')}}">
     <!-- Select2 -->
@@ -97,28 +92,15 @@
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.js"></script>
 <script src="plugins/select2/js/select2.full.js"></script>
+<script src="js/script.js"></script>
 <!-- Make sure you put this AFTER Leaflet's CSS -->
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
 integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
 crossorigin=""></script>
+<!--manual scripts-->
+<script src="js/script.js"></script>
 <script>
   $('.select2').select2();
-  
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": true,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true,
-    });
-  });
 </script>
 
 <script type="text/javascript">
@@ -158,24 +140,6 @@ crossorigin=""></script>
               language: "es",
               autoclose: true
           });
-          function continuar(id){
-          if (document.getElementById){ //se obtiene el id
-          var e2 = document.getElementById(id); //se define la variable "el" igual a nuestro div
-          e2.style.display = (e2.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
-          }
-              }
-              /*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
-          window.onload=continuar('e1');/* "contenido_a_mostrar" es el nombre que le dimos al DIV */
-              
-          function continuar2(id){
-          if (document.getElementById){ //se obtiene el id
-          var e4 = document.getElementById(id); //se define la variable "el" igual a nuestro div
-          e4.style.display = (e4.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
-          }
-              }
-          continuar2('e3')=window.onload();
-          /*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
-          /* "contenido_a_mostrar" es el nombre que le dimos al DIV */
       </script>
       <script>
     //input a agreagar
@@ -193,8 +157,11 @@ crossorigin=""></script>
     });
         </script>
         <script>
-
-        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+            $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
         </script>
 @endsection
 

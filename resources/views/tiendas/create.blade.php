@@ -7,8 +7,8 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Editar Almacen</h1>
+          <div class="col-sm-12 text-center">
+            <h1 class="m-0 text-dark"><i class="fas fa-plus-square"></i> Crear Tienda</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -16,107 +16,107 @@
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
-          <form action="{{ route('Almacenes.update',$almacen) }}" method="POST">
-            @csrf
-            @method('PUT')
+            <form method="POST" action="{{ url('/Tiendas') }}">
+              @csrf
               <!-- Timelime example  -->
               <div class="row">
                 <div class="col-md-12">
                   <!-- The time line -->
                   <div class="timeline">
-                   <!-- timeline time label -->
-                   
-                   <div class="time-label">
-                    <span class="bg-info">Formulario</span>
-                  </div>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-                  <div>
-                    <i class="fas fa-users-cog bg-red"></i>
-                    <div class="timeline-item">
-                      <span class="time"></span>
-                      <h3 class="timeline-header"><a class="text-red" href="#">Informacion principal</a></h3>
-      
-                      <div class="timeline-body">
-                        <div class="row">
+                    <!-- timeline time label -->
+                    <div class="time-label">
+                      <span class="bg-info">Formulario</span>
+                    </div>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+                    <div>
+                      <i class="fas fa-users-cog bg-red"></i>
+                      <div class="timeline-item">
+                        <span class="time"></span>
+                        <h3 class="timeline-header"><a class="text-red" href="#">Informacion principal</a></h3>
+        
+                        <div class="timeline-body">
+                          <div class="row">
                             <div class="col-md-4 form-group">
-                              <label>Nombre del Almacen:</label>
+                              <label>Numero de tienda:</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                  <span class="input-group-text"><i class="fas fa-fingerprint"></i></span>
                                 </div>
-                                  @foreach ($al as $almacen)
-                              <input type="text" class="form-control" value="{{$almacen->anombre}}" name="anombre" id="nombre_almacen">
-                              @endforeach
+                              <input type="text" class="form-control" readonly required value="{{$date}}" name="number_id" id="number_id">
                               </div>
                               <!-- /.input group -->
                             </div>
-                            <!-- /.form-group -->
-                            <div class="col-md-4 form-group">
-                              <label>Encargado del Almacen:</label>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                              <div class="col-md-4 form-group">
+                                <label>Nombre del Almacen:</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
+                                  </div>
+                                  <input type="text" class="form-control" required placeholder="Tienda 01" name="name" id="name">
                                 </div>
-                              <select class="custom-select" name="uid" >
-                                  @foreach ($al as $almacen)
-                                <option value="{{$almacen->uid}}" selected>Selecciono: {{$almacen->uname}}</option>
-                                @endforeach
-                                @foreach($usr as $u) 
-                                <option value="{{$u->id}}">{{$u->name}}</option>
-                                @endforeach
-                                </select>
+                                <!-- /.input group -->
                               </div>
-                              <!-- /.input group -->
-                            </div>
-                            <!-- /.form-group -->
-                            <!-- /.form-group -->
-                            <div class="col-md-4 form-group">
-                                <label>Numero del Almacen</label>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                              <div class="col-md-4 form-group">
+                                <label>Usuario a Cargo</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user-shield"></i></span>
+                                  </div>
+                                  <select class="custom-select" name="usuario_admin" id="usuario_admin">
+                                    @foreach($usuarios as $usr)
+                                  <option value="{{$usr->id}}">{{$usr->name}}</option>
+                                    @endforeach
+                                  </select>
                                 </div>
-                                @foreach ($al as $almacen)
-                              <input type="text" class="form-control"  value="{{$almacen->anumero}}" name="anumero" >
-                            @endforeach  
-                            </div>
-                              <!-- /.input group -->
-                            </div>
-                                <div class="col-md-4 form-group">
-                                <label>Telefono del Almacen</label>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                <!-- /.input group -->
+                              </div>
+                              <!-- /.form-group -->
+                              
+                              
+                              <div class="col-md-6 form-group">
+                                <label>Telefono:</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                  </div>
+                                  <input type="phone" class="form-control" placeholder="(55)55 55 55 55 55" name="telefono" id="telefono">
                                 </div>
-                                @foreach ($al as $almacen)
-                              <input type="text" class="form-control"  value="{{$almacen->atelefono}}" name="atelefono" >
-                            @endforeach  
-                            </div>
-                              <!-- /.input group -->
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label>Dirección del Almacen</label>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                <!-- /.input group -->
+                              </div>
+                              <!-- /.form-group -->
+
+                              <div class="col-md-6 form-group">
+                                <label>Codigo postal:</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
+                                  </div>
+                                  <input type="number" class="form-control" maxlength="8"  placeholder="02060" name="cp" id="cp">
                                 </div>
-                                @foreach ($al as $almacen)
-                              <input type="text" class="form-control"  value="{{$almacen->adireccion}}" name="adireccion" >
-                            @endforeach  
-                            </div>
-                              <!-- /.input group -->
-                            </div>
-                            <div class="col-md-4 form-group">
+                                <!-- /.input group -->
+                              </div>
+                              <!-- /.form-group -->
+
+                              <div class="col-md-4 form-group">
+                                <label>Direccion:</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-street-view"></i></span>
+                                  </div>
+                                  <input type="text" class="form-control" required name="direccion" id="address">
+                                </div>
+                                <!-- /.input group -->
+                                 
+                              </div>
+                              <div class="col-md-4 form-group">
                                 <label>Estado</label>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                </div>
-                                  <select class="select2 form-control" name="aestado">
-                                      @foreach ($al as $almacen)
-                                    <option value="{{$almacen->aestado}}" selected>Selecciono: {{$almacen->aestado}}</option>
-                                    @endforeach 
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-flag"></i></span>
+                                  </div>
+                                  <select class="select2 form-control" name="estado">
+                                    <option selected>Seleccione un estado...</option>
                                     <option value="Aguascalientes">Aguascalientes</option>
                                     <option value="Baja California">Baja California</option>
                                     <option value="Baja California Sur">Baja California Sur</option>
@@ -150,31 +150,17 @@
                                     <option value="Yucatán">Yucatán</option>
                                     <option value="Zacatecas">Zacatecas</option>
                                 </select>
-                            </div>
-                              <!-- /.input group -->
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Codigo Postal</label>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                 </div>
-                                @foreach ($al as $almacen)
-                              <input type="text" class="form-control"  value="{{$almacen->acp}}" name="acp" id="numero almacen">
-                            @endforeach  
-                            </div>
-                              <!-- /.input group -->
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>País</label>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                </div>
-                            <select class="select2 form-control" name="apais" >
-                                @foreach ($al as $almacen)
-                                    <option selected value="{{$almacen->apais}}">Selecciono: {{$almacen->apais}}</option>
-                                    @endforeach  
+                                <!-- /.input group -->   
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label>País:</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
+                                  </div>
+                                  <select class="select2 form-control" name="pais" >
+                                    <option selected>Seleccione un país...</option>
                                     <option value="AF">Afganistán</option>
                                     <option value="AL">Albania</option>
                                     <option value="DE">Alemania</option>
@@ -410,18 +396,22 @@
                                     <option value="ZM">Zambia</option>
                                     <option value="ZW">Zimbabue</option>
                                     </select>
-                            </div>
-                              <!-- /.input group -->
-                            </div>
-                            <!-- /.form-group -->
-                            </div>
+                                </div>
+                                <!-- /.input group -->
+
+                                
+                        </div>
+                        <div class="row">
+
+                        </div>
+
+                        <div class="timeline-footer">
+                          <button class="btn btn-primary btn-sm" type="submit">Enviar</button>
+                        </div>
                       </div>
-                      <div class="timeline-footer">
-                        <button class="btn btn-primary btn-sm" type="submit">Enviar</button>
-                      </div>
+                      
                     </div>
-                  </div>
-                  <!-- END timeline item -->
+                    <!-- END timeline item -->
                   
                 <!-- /.col -->
                   </form>
@@ -433,4 +423,5 @@
       <i class="fas fa-chevron-up"></i>
     </a>
 </div>
+  
 @endsection

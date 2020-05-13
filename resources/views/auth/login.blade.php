@@ -70,7 +70,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+            <button type="submit" class="btn btn-primary btn-block" >Ingresar</button>
           </div>
           <!-- /.col -->
         </div>
@@ -87,7 +87,7 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">Contacta a soporte</a>
+        <a href="forgot-password.html" data-toggle="tooltip" data-placement="top" title="eduardoquet@hotmail.com">Contacta a soporte</a>
       </p>
       <p class="mb-0">
         <a href="register.html" class="text-center">Registrar (necesitas permisos especiales)</a>
@@ -99,11 +99,12 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+<script src="js/script.js"></script>
 
 </body>
 </html>

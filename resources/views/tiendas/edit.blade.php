@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Editar Almacen</h1>
+            <h1 class="m-0 text-dark">Editar Tienda</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -16,7 +16,7 @@
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
-          <form action="{{ route('Almacenes.update',$almacen) }}" method="POST">
+          <form action="{{ route('Tiendas.update',$almacen) }}" method="POST">
             @csrf
             @method('PUT')
               <!-- Timelime example  -->

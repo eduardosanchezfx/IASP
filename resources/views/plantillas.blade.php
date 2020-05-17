@@ -40,7 +40,7 @@
  
 @section('content')
 @include('layout.nav')
-@yield('something')
+@include('plantillas.prueba')
 @include('layout.aside') 
 @include('layout.footer')
 @endsection

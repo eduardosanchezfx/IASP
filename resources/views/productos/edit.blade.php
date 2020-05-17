@@ -62,7 +62,7 @@
                             </div>
                             <!-- /.form-group -->
                             <div class="col-md-3 form-group">
-                              <label>Stock Inicial:</label>
+                              <label>Stock:</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fa fa-envelope"></i></span>
@@ -97,7 +97,7 @@
                       <h3 class="timeline-header no-border"><a class="text-warning" href="#">Adicional</a></h3>
                       <div class="timeline-body">
                         <div class="row">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                               <label>Precio:</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">
@@ -107,7 +107,26 @@
                               </div>
                               <!-- /.input group -->
                             </div>
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
+                                <label class="text-center">Divisa:</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
+                                  </div>
+                                  <select class="custom-select" name="divisa" id="divisa">
+                                      <option value="{{$item->tipo_moneda}}" selected>Selecciono: {{$item->tipo_moneda}}</option>
+                                    <option value="EUR">(EUR) Euro</option>
+                                    <option value="DUS">(DUS) Dolar Estado Unidense</option>
+                                    <option value="NMX">(NMX) Peso Mexicano</option>
+                                    <option value="YEN">(YEN) Yen (Japon)</option>
+                                    <option value="DCA">(DCA) Dolar Canadiense</option>
+                                    <option value="LIE">(LIE) Libra Esterlina</option>
+                                    <option value="YUA">YUAN (China)</option>
+                                  </select>
+                                </div>
+                                <!-- /.input group -->
+                              </div>
+                            <div class="col-md-4 form-group">
                               <label>Unidad de medida</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">

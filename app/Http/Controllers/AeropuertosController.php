@@ -11,14 +11,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\almacen_user;
 
-class TiendaController extends Controller
+class AeropuertosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+        public function __construct()
      {
             $this->middleware('auth');
             $this->middleware('SuperMiddleware')->except('index');
@@ -32,41 +32,41 @@ class TiendaController extends Controller
         $userid=Auth::user()->id;//encuentra id usuario autenticado
         if($auth=='S'){
         $almacenes=DB::table('almacens')
-                ->where('tipo','T')
+                ->where('tipo','A')
                 ->join('users','users.id','almacens.encargado_id')
                 ->select('almacens.*','users.name as username')
          ->get();
-        return view('tiendas.read',['almacenes'=>$almacenes,'contador'=>$contador]);
+        return view('Aeropuertos.read',['almacenes'=>$almacenes,'contador'=>$contador]);
          }
          if($auth=='A'){
              $almacenes=DB::table('almacens')
-                ->where('tipo','T')
+                ->where('tipo','A')
                 ->where('encargado_id',$userid)
                 ->join('users','users.id','almacens.encargado_id')
                 ->select('almacens.*','users.name as username')
                 ->get();
-             return view('tiendas.read',['almacenes'=>$almacenes,'contador'=>$contador]);
+             return view('Aeropuertos.read',['almacenes'=>$almacenes,'contador'=>$contador]);
          }
          if($auth=='M'){
              $consulta= User::find($userid);
                    $almacen=$consulta->almacens()->pluck('almacens.id');
-                    if(count($almacen)!=0){
+              if(count($almacen)!=0){
              for($i=0;$i<count($almacen);$i++){
               $almacenes=DB::table('almacens')
                 ->whereIn('almacens.id',$almacen)
-                ->where('tipo','T')
+                ->where('tipo','A')
                 ->join('users','users.id','almacens.encargado_id')
                 ->select('almacens.*','users.name as username')
                 ->get();
-              
              }
-            return view('tiendas.read',['almacenes'=>$almacenes,'contador'=>$contador]);   
-         }
-         else{
-                 $almacenes=null;
-                  return view('tiendas.read',['almacenes'=>$almacenes,'contador'=>$contador]);
+            return view('Aeropuertos.read',['almacenes'=>$almacenes,'contador'=>$contador]);   
               }
-         }           
+              else{
+                 $almacenes=null;
+                  return view('Aeropuertos.read',['almacenes'=>$almacenes,'contador'=>$contador]);
+              }
+         }
+                     
         
     }
 
@@ -85,7 +85,7 @@ class TiendaController extends Controller
                     ->where('level','!=','M')
                     ->get();
         $date = carbon::now()->format('Y_d_m_h_i');
-        return view('tiendas.create',['contador'=>$contador,'date'=>$date,'usuarios'=>$usuarios,'usuariosm'=>$usuariosm]);
+        return view('Aeropuertos.create',['contador'=>$contador,'date'=>$date,'usuarios'=>$usuarios,'usuariosm'=>$usuariosm]);
     }
 
     /**
@@ -97,7 +97,7 @@ class TiendaController extends Controller
     public function store(Request $request)
     {
                 $almacenes= new almacen();
-                $almacenes->tipo='T';
+                $almacenes->tipo='A';
                 $almacenes->numero_almacen=$request->number_id;
                 $almacenes->nombre=$request->name;
                 $almacenes->estado=$request->estado;
@@ -108,7 +108,7 @@ class TiendaController extends Controller
                 $almacenes->encargado_id=$request->usuario_admin;
                 $almacenes->save();
 
-        return redirect('Lista_Tienda')->with('success','Tienda Creado correctamente');
+        return redirect('Lista_Aeropuerto')->with('success','Aeropuerto Creado correctamente');
     }
 
     /**
@@ -155,7 +155,7 @@ class TiendaController extends Controller
                         ->whereNotIn('id',(array)$chkdsk)
                         ->where('level','=','A')
                         ->get();
-            return view('tiendas.edit',['almacen'=>$almacen,'al'=>$al,'contador'=>$contador,'usr'=>$usr]); 
+            return view('Aeropuertos.edit',['almacen'=>$almacen,'al'=>$al,'contador'=>$contador,'usr'=>$usr]); 
             }
 
         }
@@ -180,7 +180,7 @@ class TiendaController extends Controller
         $almacens->codigo_postal=$request->acp;
         $almacens->encargado_id=$request->uid;
         $almacens->save();
-        return redirect('/Lista_Tienda')->with('success','Tienda Actualizado Correctamente');
+        return redirect('/Lista_Aeropuerto')->with('success','Aeropuerto Actualizado Correctamente');
     }
 
     /**
@@ -197,11 +197,11 @@ class TiendaController extends Controller
         foreach($check as $ch){
         if($ch->deleted_at!=null){
             almacen::where('id',$id)->forceDelete();
-            return redirect('Lista_Tienda')->with('success','Se ha eliminado permanentemente');
+            return redirect('Lista_Aeropuerto')->with('success','Se ha eliminado permanentemente');
         }
         else{
         almacen::destroy($id);
-        return redirect('Lista_Tienda')->with('success','Se ha eliminado correctamente');
+        return redirect('Lista_Aeropuerto')->with('success','Se ha eliminado correctamente');
         }
         }
     }

@@ -8,7 +8,9 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <h1 class="m-0 text-dark"><i class="fas fa-users"></i>Asignar Empleados A Almacen </h1>
+              @foreach($almacens as $al)
+            <h1 class="m-0 text-dark"><i class="fas fa-users"></i>Asignar Empleados a {{$al->nombre}} </h1>
+            @endforeach
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -18,8 +20,10 @@
         <div class="col-12">
     <div class=" card card-primary card-outline">
       <div class="card-header">
-        <h3 class="card-title">Asignar Almacen</h3>
-        
+          @foreach($almacens as $al)
+        <h3 class="card-title">Asignar {{$al->nombre}}</h3>
+        @endforeach
+      </div>
       <!-- /.card-header -->
       <div class="card-body">  
         <div class="container-fluid">

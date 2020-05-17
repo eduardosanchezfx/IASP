@@ -22,7 +22,7 @@ class AlmacenesController extends Controller
     public function __construct()
      {
             $this->middleware('auth');
-            $this->middleware('SuperMiddleware')->except('index');
+            $this->middleware('SuperMiddleware')->except('index','capacidad');
 
      }
 
@@ -51,6 +51,7 @@ class AlmacenesController extends Controller
          if($auth=='M'){
              $consulta= User::find($userid);
                    $almacen=$consulta->almacens()->pluck('almacens.id');
+              if(count($almacen)!=0){
              for($i=0;$i<count($almacen);$i++){
               $almacenes=DB::table('almacens')
                 ->whereIn('almacens.id',$almacen)
@@ -58,9 +59,13 @@ class AlmacenesController extends Controller
                 ->join('users','users.id','almacens.encargado_id')
                 ->select('almacens.*','users.name as username')
                 ->get();
-              
              }
             return view('almacenes.read',['almacenes'=>$almacenes,'contador'=>$contador]);   
+              }
+              else{
+                 $almacenes=null;
+                  return view('almacenes.read',['almacenes'=>$almacenes,'contador'=>$contador]);
+              }
          }
                      
         
@@ -204,12 +209,32 @@ class AlmacenesController extends Controller
     public function pdfgenerator(){
         $almacenes=DB::table('almacens')
                 ->where('tipo','S')
+                ->join('users','users.id','almacens.encargado_id')
+                ->select('almacens.*','users.name as username')
          ->get();
-        $pdf = \PDF::loadView('ejemplo', compact('almacenes'));
+        $pdf = \PDF::loadView('plantillas.prueba', compact('almacenes'));
               return $pdf->stream('almacenes.pdf');
-        
-         
-     
         }
-    
+    public function capacidad(){
+        $user=Auth::user()->level;
+        if($user=='S'){
+            $storages= DB::table('storages')
+                 ->join('almacens','almacens.id','storages.almacen_id')
+                 ->join('products','products.id','storages.product_id')
+                 ->where('almacens.tipo','S')
+                 ->select('almacens.nombre as anombre','almacens.numero_almacen as anumero','storages.stock as sstock','storages.stockinit as ssinit','products.Nombre as pnombre','products.Precio','products.StockInicial as pstock','products.StockTotal as pstotal')
+                ->get();
+            dd($storages);
+            return view('almacenes.capacidad');
+        }
+        if($user=='A'){
+            
+        }
+        if($user=='M'){ 
+            $user= User::find(Auth::user()->id)->almacens();
+            
+        }
+       
+        
+    }
 }

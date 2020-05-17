@@ -17,6 +17,7 @@ class ProductosController extends Controller
     public function __construct()
      {
             $this->middleware('auth');
+            $this->middleware('SuperMiddleware')->except('index','capacidad');
             
             
      }
@@ -49,6 +50,9 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+        'nombre_producto' => 'unique:products,Nombre',
+             ]);
         $productos= new product();
         $productos->Nombre=$request->nombre_producto;
         $productos->Descripcion=$request->descripcion;
@@ -59,7 +63,7 @@ class ProductosController extends Controller
         $productos->StockInicial=$request->StockTotal;
         $productos->save();
         return redirect('/Lista_producto')->with('success','Producto Creado correctamente');
-
+        
         
     }
 
@@ -117,8 +121,9 @@ class ProductosController extends Controller
         $productos->Nombre=$request->nombre_producto;
         $productos->Descripcion=$request->descripcion;
         $productos->StockTotal=($request->StockTotal)+($request->stockinit);
-        $productos->StockInicial=($request->StockTotal)+($request->stockinit);
+        $productos->StockInicial=$productos->StockInicial+($request->StockTotal);
         $productos->Precio=$request->precio;
+        $productos->tipo_moneda=$request->divisa;
         $productos->unidad=$request->unidad;
         $productos->update();
          return redirect('/Lista_producto')->with('success','Producto actualizado correctamente');
@@ -137,7 +142,7 @@ class ProductosController extends Controller
         ->get();
          foreach($check as $ch){
         if($ch->deleted_at!=null){
-            product::destroy($id);
+            product::where('id',$id)->forceDelete();
                 return redirect('Lista_producto')->with('success','Se ha eliminado correctamente');
             }
          else{
@@ -146,8 +151,14 @@ class ProductosController extends Controller
             }
         }
     }
-    public function adicionar($id)
+    public function capacidad()
     {
-         
+         $contador= new ContadorController;
+        $products=DB::table('products')
+        ->get();
+       /* foreach($algo as $products=>$item){
+        dd((($item->StockTotal)*100)/($item->StockInicial));
+        }*/
+        return view('productos.capacidad',['contador'=>$contador,'products'=>$products]);
     }
 }

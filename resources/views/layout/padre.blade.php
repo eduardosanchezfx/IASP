@@ -49,7 +49,7 @@
   crossorigin=""/>  
   @yield('css') 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
 <!-- Control Sidebar -->
 @yield('content')
@@ -165,5 +165,12 @@
    });
 });
     </script>
+     <script>
+    @if(count($errors) > 0)
+        @foreach($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
+</script>
 </body>
 </html>

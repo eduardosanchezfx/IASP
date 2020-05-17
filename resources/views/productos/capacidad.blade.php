@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <h1 class="m-0 text-dark"><i class="fas fa-boxes"></i> Administracion de Productos</h1>
+            <h1 class="m-0 text-dark"><i class="fas fa-boxes"></i> Productos Asignados</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -36,10 +36,9 @@
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Precio por Unidad</th>
-            <th>Stock Inicial</th>
-            <th>Creacion</th>
+            <th>Asignados (%)</th>
+            <th>Asignados</th>
+            <th>Sin Asignar</th>
             <th>Actualizacion</th>
             <th>Acciones</th>
           </tr>
@@ -54,10 +53,11 @@
             <td class="text-center"><span class="badge badge-pill badge-success">{{$productos->id}}</span></td>
             @endif        
             <td>{{$productos->Nombre}}</td>
-            <td>{{$productos->Descripcion}}</td>
-            <td>{{$productos->Precio}} {{$productos->tipo_moneda}}</td>
-            <td>{{$productos->StockInicial}} {{$productos->unidad}}</td>
-            <td>{{$productos->created_at}}</td>
+            <td class="justify-content-center"><div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{100-(($productos->StockTotal)*100/($productos->StockInicial))}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+</div> {{100-(($productos->StockTotal)*100/($productos->StockInicial))}}%</td>
+            <td>{{($productos->StockInicial)-($productos->StockTotal)}} {{$productos->unidad}}</td>
+            <td>{{$productos->StockTotal}} {{$productos->unidad}}</td>
             <td>{{$productos->updated_at}}</td>
             <td>
               <div class="row justify-content-center">

@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <h1 class="m-0 text-dark"><i class="fas fa-warehouse"></i> Administracion de Tiendas</h1>
+            <h1 class="m-0 text-dark"><i class="fas fa-store"></i> Administracion de Tiendas</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -46,10 +46,16 @@
             <th>Acciones</th>
           </tr>
           </thead>
+          @if($almacenes!=null)
           <tbody>
             @foreach($almacenes as $almacen)
           <tr class="text-center">
-            <td>{{$almacen->id}}</td>      
+            @if(($almacen->deleted_at)!=null)
+              <td class="text-center"><span class="badge badge-pill badge-danger">{{$almacen->id}}</span></td>      
+            @endif
+            @if(($almacen->deleted_at)==null)
+            <td class="text-center"><span class="badge badge-pill badge-success">{{$almacen->id}}</span></td>
+            @endif       
             <td>{{$almacen->numero_almacen}}</td>
             <td>{{$almacen->nombre}}</td>
             <td>{{$almacen->direccion}}</td>
@@ -83,8 +89,12 @@
               </div>
             </td>
           </tr>
-          @endforeach
           </tbody>
+          @endforeach
+          @endif
+          @if($almacenes==null)
+          <tbody></tbody>
+          @endif
         </table>
           </div>
       </div>

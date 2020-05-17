@@ -15,6 +15,8 @@ $(document).ready(function(){
         var almacen_id = $("#almacen_id").val();
         var product_id = $("#product_id").val();
         var stock = $("#stock").val();
+        
+        
         $.ajax({
                 type:'ajax',
                 url:'/Almacenamiento',//ruta de envio
@@ -24,7 +26,7 @@ $(document).ready(function(){
                 
                 success:function(response){
                   alert('Producto Ingresado a la BD, recargue para visualizar la actualización');
-                  //vacia los input para poder ingresar otro producto
+                    //vacia los input para poder ingresar otro producto
                   var stock = $("#stock").val("");
                 },
                 error:function(x,xs,xt){
@@ -35,6 +37,8 @@ $(document).ready(function(){
         })
     })
 })
+
+
 //datatables
   var table = $('#example1').DataTable({
       'paging'      : true,
@@ -49,9 +53,9 @@ $(document).ready(function(){
     ],
       language: {
         "decimal": "",
-        "emptyTable": "No hay información",
+        "emptyTable": "No hay información!!",
         "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        "infoEmpty": "Mostrando 0 to 0 de 0 Entradas",
         "infoFiltered": "(Filtrado de _MAX_ total entradas)",
         "infoPostFix": "",
         "thousands": ",",
@@ -85,4 +89,7 @@ $('.datepicker').datepicker({
                   language: "es",
                   autoclose: true
               });
-
+//toastr multiple
+toastr.options = {
+    "preventDuplicates": true
+}

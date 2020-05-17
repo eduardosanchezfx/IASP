@@ -1,6 +1,6 @@
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/home" class="brand-link">
       <img src="{{ URL::asset('dist/img/logo.png')}}" alt="partydev" class="brand-image img-circle elevation-3"
            style="opacity: 1">
       <span class="brand-text font-weight-light">Sistema de Inventario</span>
@@ -11,7 +11,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ URL::asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ URL::asset('dist/img/user2-160x160.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info text-center">
         <a class="d-block text-center">{{auth()->user()->name}}</a>
@@ -50,12 +50,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @if(auth()->user()->level!='M')
               <li class="nav-item">
                 <a href="/Crear_Producto" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Productos</p>
                 </a>
               </li>
+              @endif
               <li class="nav-item">
                 <a href="/Lista_producto" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -63,9 +65,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="/Capacidad" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ver Almacenamiento
+                  <p>Ver Asignaciones
                   </p>
                 </a>
               </li>
@@ -133,18 +135,18 @@
               <p>
                 Aeropuertos
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">9</span>
+                <span class="badge badge-info right">{{$contador->contadorTiendas}}</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="/Lista_Aeropuerto" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Administrar Aeropuertos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="/Crear_Aeropuerto" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Aeropuertos</p>
                 </a>
@@ -225,8 +227,7 @@
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon fas fa-diagnoses"></i>
               <p>
-                Kardex
-                <span class="badge badge-info right">2</span>
+                Estadisticas
               </p>
             </a>
           </li>
@@ -239,7 +240,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/FrecuencyQuestions" class="nav-link">
               <i class="nav-icon fas fa-bug"></i>
               <p>
                 Soporte tecnico

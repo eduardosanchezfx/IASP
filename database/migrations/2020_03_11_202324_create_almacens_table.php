@@ -20,8 +20,8 @@ class CreateAlmacensTable extends Migration
             $table->string('nombre');
             $table->string('estado');
             $table->string('direccion');
-            $table->string('telefono');
-            $table->string('codigo_postal');
+            $table->string('telefono')->nullable();
+            $table->string('codigo_postal')->nullable();
             $table->string('pais');
             $table->enum('tipo',['S','T','A']);//[S]Almacen, [T]Tienda, [A]Aeropuerto
             $table->timestamps();

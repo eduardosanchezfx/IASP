@@ -16,6 +16,7 @@ class ContadorController extends Controller
     public $contadorEnvios;
     public $contadorUsuarios;
     public $contadorProductos;
+    public $contadorAeropuertos;
  
 
     public function __construct(){
@@ -25,21 +26,29 @@ class ContadorController extends Controller
         $this->contadorEnvios=$contadorEnvios=DB::table('envios')->count();
         $this->contadorProductos=$contadorProductos=DB::table('products')->count();
         $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->count();
-         return ['cu'=>$contadorUsuarios,'contadorAlmacenes'=>$contadorAlmacenes,'contadorEnvios'=>$contadorEnvios,'contadorProductos'=>$contadorProductos,'ct'=>$contadorTiendas];}
+        $this->contadorAeropuertos=$contadorAeropuertos=DB::table('almacens')->where('tipo','A')->count();
+         return ['cu'=>$contadorUsuarios,'contadorAlmacenes'=>$contadorAlmacenes,'contadorEnvios'=>$contadorEnvios,'contadorProductos'=>$contadorProductos,'ct'=>$contadorTiendas,'ca'=>$contadorAeropuertos];}
         if(auth()->user()->level==='A'){
         $this->contadorUsuarios=$contadorUsuarios=DB::table('users')->count();
         $this->contadorAlmacenes=$contadorAlmacenes=DB::table('almacens')->where('tipo','S')->where('encargado_id',auth()->user()->id)->count();
         $this->contadorEnvios=$contadorEnvios=DB::table('envios')->count();
         $this->contadorProductos=$contadorProductos=DB::table('products')->count();
-        $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->count();
-         return ['cu'=>$contadorUsuarios,'contadorAlmacenes'=>$contadorAlmacenes,'contadorEnvios'=>$contadorEnvios,'contadorProductos'=>$contadorProductos,'ct'=>$contadorTiendas];}
+        $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->where('encargado_id',auth()->user()->id)->count();
+        $this->contadorAeropuertos=$contadorAeropuertos=DB::table('almacens')->where('tipo','A')->where('encargado_id',auth()->user()->id)->count();
+         return ['cu'=>$contadorUsuarios,'contadorAlmacenes'=>$contadorAlmacenes,'contadorEnvios'=>$contadorEnvios,'contadorProductos'=>$contadorProductos,'ct'=>$contadorTiendas,'ca'=>$contadorAeropuertos];}
         if(auth()->user()->level=='M'){
-            $this->contadorUsuarios=$contadorUsuarios=DB::table('users')->count();
-        $this->contadorAlmacenes=$contadorAlmacenes=DB::table('almacen_user')->where('tipo','S')->where('user_id',auth()->user()->id)->count();
+        $this->contadorUsuarios=$contadorUsuarios=DB::table('users')->count();
+        $consulta= User::find(auth()->user()->id);
+        $almacen=$consulta->almacens()->pluck('almacens.id');
         $this->contadorEnvios=$contadorEnvios=DB::table('envios')->count();
         $this->contadorProductos=$contadorProductos=DB::table('products')->count();
-         $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->count();
-        return ['cu'=>$contadorUsuarios,'contadorAlmacenes'=>$contadorAlmacenes,'contadorEnvios'=>$contadorEnvios,'contadorProductos'=>$contadorProductos,'ct'=>$contadorTiendas];}
+        for($i=0;$i<count($almacen);$i++){
+        $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->whereIn('almacens.id',$almacen)->count();
+        $this->contadorAlmacenes=$contadorAlmacenes=DB::table('almacens')->where('tipo','S')->whereIn('almacens.id',$almacen)->count();
+        $this->contadorAeropuertos=$contadorAeropuertos=DB::table('almacens')->where('tipo','A')->whereIn('almacens.id',$almacen)->count();
+        return ['cu'=>$contadorUsuarios,'contadorAlmacenes'=>$contadorAlmacenes,'contadorEnvios'=>$contadorEnvios,'contadorProductos'=>$contadorProductos,'ct'=>$contadorTiendas,'ca'=>$contadorAeropuertos];
+        }        
+        }
         }
     }
 

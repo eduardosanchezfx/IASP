@@ -43,8 +43,7 @@ class AlmacenamientoController extends Controller
     public function create($almacen)
     {
          $contador= new ContadorController;
-     $products=DB::table('products')
-                    ->get();   
+       
      $almacens=DB::table('almacens')
                     ->where('almacens.id',$almacen)
                     ->join('users','users.id','almacens.encargado_id')
@@ -54,8 +53,12 @@ class AlmacenamientoController extends Controller
              ->where('almacen_id',$almacen)
              ->join('almacens','almacens.id','storages.almacen_id')
              ->join('products','products.id','storages.product_id')
-             ->select('products.Nombre as pname','products.StockTotal as pstock','products.unidad as punidad','products.tipo_moneda as pmoneda','storages.stock as sstock','products.precio as pprecio','storages.created_at as screated','storages.updated_at as supdated','storages.deleted_at as sdeleted','storages.id as id')
+             ->select('products.Nombre as pname','products.StockTotal as pstock','products.unidad as punidad','products.tipo_moneda as pmoneda','storages.stock as sstock','products.precio as pprecio','storages.created_at as screated','storages.updated_at as supdated','storages.deleted_at as sdeleted','storages.id as id','storages.product_id as sproduct')
              ->get();
+             $products=DB::table('products')
+            ->get(); 
+          
+
       return view('almacenamientos.create',['contador'=>$contador,'products'=>$products,'almacens'=>$almacens,'storage'=>$storage]);
           
     }

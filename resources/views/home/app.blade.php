@@ -62,7 +62,7 @@
                 <p>Envios con falla</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-times-circle"></i>
               </div>
               <a href="#" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -118,14 +118,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{$contador->contadorAeropuertos}}</h3>
 
                 <p>Aeropuertos</p>
               </div>
               <div class="icon">
                 <i class="fas fa-plane-arrival"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="Lista_Aeropuerto" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

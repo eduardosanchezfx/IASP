@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <h1 class="m-0 text-dark"><i class="fas fa-store"></i> Crear Tienda</h1>
+            <h1 class="m-0 text-dark"><i class="fas fa-plane-departure"></i> Crear Aeropuerto</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -16,7 +16,7 @@
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
-            <form method="POST" action="{{ url('/Tiendas') }}">
+            <form method="POST" action="{{ url('/Aeropuertos') }}">
               @csrf
               <!-- Timelime example  -->
               <div class="row">
@@ -38,7 +38,7 @@
                         <div class="timeline-body">
                           <div class="row">
                             <div class="col-md-4 form-group">
-                              <label>Numero de tienda:</label>
+                              <label>Numero de Aeropuerto:</label>
                               <div class="input-group">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fas fa-fingerprint"></i></span>
@@ -48,12 +48,12 @@
                               <!-- /.input group -->
                             </div>
                               <div class="col-md-4 form-group">
-                                <label>Nombre del Almacen:</label>
+                                <label>Nombre del Aeropuerto:</label>
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
                                   </div>
-                                  <input type="text" class="form-control" required placeholder="Tienda 01" name="name" id="name">
+                                  <input type="text" class="form-control" required placeholder="Aeropuerto Benito Juarez" name="name" id="name">
                                 </div>
                                 <!-- /.input group -->
                               </div>
@@ -154,7 +154,7 @@
                                 <!-- /.input group -->   
                               </div>
                               <div class="col-md-4 form-group">
-                                <label>País:</label>
+                                <label>País (Importante Indicar):</label>
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>

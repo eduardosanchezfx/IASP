@@ -17,9 +17,9 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->String('Nombre');
             $table->String('Descripcion');
-            $table->float('Precio');
-            $table->float('StockTotal');
-            $table->float('StockInicial');
+            $table->string('Precio');
+            $table->string('StockTotal');
+            $table->string('StockInicial');
             $table->enum('unidad',['M','CM','KM','PZ','TN','M2','M3']);
             $table->enum('tipo_moneda',['EUR','DUS','YEN','NMX','DCA','LIE','YUA']);//Euro, Dolar US, Yen, Peso Mexicano,Dolar Canada, Libra Esterlina,Yuan
             $table->timestamps();

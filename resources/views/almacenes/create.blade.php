@@ -63,7 +63,7 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user-shield"></i></span>
                                   </div>
-                                  <select class="custom-select" name="usuario_admin" id="usuario_admin">
+                                  <select class="select2 form-control" name="usuario_admin" id="usuario_admin">
                                     @foreach($usuarios as $usr)
                                   <option value="{{$usr->id}}">{{$usr->name}}</option>
                                     @endforeach

@@ -7,7 +7,7 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="col-sm-12 text-center">
             <h1 class="m-0 text-dark">Editar Tienda</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->

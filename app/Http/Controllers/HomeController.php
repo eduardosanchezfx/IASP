@@ -31,6 +31,13 @@ class HomeController extends Controller
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $date = $date->format('l jS \\of F Y');
-        return view('home',['contador'=>$contador,'date'=>$date])->with('info','Se añadiran nuevas caracteristicas');
+        $envios= \App\envio::where('estado','Pendiente')->distinct('numero_guia')->count('numero_guia');//obtener toda la informacion de los envio
+        $enviosFail= \App\envio::where('estado','=','Fallido')->distinct('numero_guia')->count('numero_guia');//obtener toda la informacion de los envio
+        $enviosSuccess= \App\envio::where('estado','=','Completado')->distinct('numero_guia')->count('numero_guia');//obtener toda la informacion de los envio
+        $envioslist= \App\envio::with('storages.products','users','storages.almacen','almacens')->where('estado','=','Pendiente')->distinct('numero_guia')->latest()->take(10)->get();//obtener toda la informacion de los envio
+      /*  foreach($envioslist as $id=>$item){
+        dd($item->numero_guia);
+    }*/
+        return view('home',['contador'=>$contador,'date'=>$date,'envios'=>$envios,'enviosFail'=>$enviosFail,'enviosSuccess'=>$enviosSuccess,'envioslist'=>$envioslist])->with('info','Se añadiran nuevas caracteristicas');
     }
 }

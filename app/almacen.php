@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //línea necesaria
 use App\User;
 use App\product;
+use App\storage;
+use App\envio;
 
 class almacen extends Model
 {
@@ -15,12 +17,18 @@ class almacen extends Model
         'numero_almacen', 'nombre', 'estado','ubicacion','telefono','tipo','encargado_id','user_id'
     ];
 
-    public function users()
+    public function users()//usuarios asignados a un almacen
     {
         return $this->belongsToMany(User::class,'almacen_user');
     }
-    public function almacenInProducts()
+    public function storages()//->conecta a storages que a su vez conecta a products & envios
     {
-        return $this->belongsToMany(product::class,'almacen_product');
+        return $this->hasMany(storage::class);
     }
+    public function envios()//destino de envio
+    {
+        return $this->hasMany(envio::class);
+    }
+        
+    
 }

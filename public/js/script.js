@@ -93,3 +93,40 @@ $('.datepicker').datepicker({
 toastr.options = {
     "preventDuplicates": true
 }
+//ajax de envios
+$(document).ready(function(){
+    $('#store').click(function(){
+        event.preventDefault();
+        //tomamos valores de los input
+        var almacen_id = $("#almacen_id").val();
+        var storage_id = $("#storage_id").val();
+        var user_id = $("#user_id").val();
+        var numero_guia = $("#numero_guia").val();
+        var cantidad_inicial = $("#cantidad_inicial").val();
+        var comentario = $("#comentario").val();
+        var example = $("#example1").val();
+        var cantidad_inicial = $("#cantidad_inicial").val();
+        
+        $.ajax({
+                type:'ajax',
+                url:'/Envio',//ruta de envio
+                type:'POST',
+                dataType:'json',
+                data:{almacen_id:almacen_id,storage_id:storage_id,user_id:user_id,numero_guia:numero_guia,cantidad_inicial:cantidad_inicial,comentario:comentario,cantidad_incial:cantidad_inicial},
+                
+                success:function(response){
+                  alert('Producto Ingresado a la BD, No recargue si desea ingresar productos en una misma orden de envio');
+                    //vacia los input para poder ingresar otro producto
+                  var cantidad_inicial = $("#cantidad_inicial").val("");
+                  var comentario = $("#comentario").val("");
+                  var cantidad_inicial = $("#cantidad_inicial").val("");
+                  
+                },
+                error:function(x,xs,xt){
+                    //nos dara el error si es que hay alguno
+                    alert(JSON.stringify(x));
+                    alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
+                }
+        })
+    })
+})

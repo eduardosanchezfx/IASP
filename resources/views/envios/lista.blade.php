@@ -42,40 +42,38 @@
           <thead>
               <tr class="text-center">
             <th>Numero de Guía</th>
+            <th>Creador</th>
+            <th>Remitente</th>
             <th>Estatus</th>
-            <th>Productos</th>
-            <th>Persona Que Envio</th>
+            <th>Destino</th>
+            <th>Creación</th>
             <th>Acciones</th>
           </tr>
           </thead>
           <tbody>
-              @if($envios!=null)
             @foreach($envios as $env=>$item)
-            @if($item->storages->almacen->id==$almacen)
           <tr class="text-center">
-            @if(($item->deleted_at)!=null)
-              <td class="text-center"><span class="badge badge-pill badge-danger">{{$item->numero_guia}}</span></td>      
+            <td class="text-center"><span class="badge badge-pill badge-primary">{{$item->numero_guia}}</span></td>
+            <td>{{$item->users->name}}</td>
+            <td>{{$item->storages->almacen->nombre}}</td>
+            @if($item->estado=='Pendiente')
+            <td><span class="badge badge-pill badge-warning">{{$item->estado}}</span></td>
             @endif
-            @if(($item->deleted_at)==null)
-            <td class="text-center"><span class="badge badge-pill badge-success">{{$item->numero_guia}}</span></td>
-            @endif    
-            <td>{{$item->storages->id}}</td>
-            <td>{{$item->storages->id}}</td>
-            <td>{{$item->id}}</td>
+            @if($item->estado=='Completado')
+            <td><span class="badge badge-pill badge-success">{{$item->estado}}</span></td>
+            @endif
+            @if($item->estado=='Fallido')
+            <td><span class="badge badge-pill badge-danger">{{$item->estado}}</span></td>
+            @endif
+            <td>{{$item->almacens->nombre}}</td>
+            <td>{{$item->created_at}}</td>
             <td>
-              <div class="row text-center justify-content-center"> 
-                     
-                  
-              </div>
+               botones
             </td>
-          </tr>
-           </tbody>
-           @endif
+          </tr> 
           @endforeach
-          @endif
-          @if($envios==null)
-          <tbody></tbody>
-          @endif
+           </tbody>
+         
          
         </table>
           </div>

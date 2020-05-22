@@ -27,8 +27,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>150</h3>
-
+                <h3>{{$envios}}</h3>
                 <p>Envios en proceso</p>
               </div>
               <div class="icon">
@@ -42,7 +41,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53</h3>
+                <h3>{{$enviosSuccess}}</h3>
 
                 <p>Envios aceptados</p>
               </div>
@@ -57,7 +56,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{$enviosFail}}</h3>
 
                 <p>Envios con falla</p>
               </div>
@@ -197,19 +196,27 @@
                   <table class="table m-0">
                     <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>Numero_Guia</th>
+                      <th>Creador</th>
+                      <th>Remitente</th>
                       <th>Producto</th>
                       <th>Status</th>
                       <th>Destino</th>
+                      <th>Creacion</th>
                     </tr>
                     </thead>
                     <tbody>
+                        @foreach($envioslist as $identify=>$item)
                         <tr>
-                        <th>1213</th>
-                        <th>llaves 123</th>
-                        <th>En proceso</th>
-                        <th>Aeropuerto</th>
+                        <th>{{$item->numero_guia}}</th>
+                        <th>{{$item->users->name}}</th>
+                        <th>{{$item->storages->almacen->nombre}}</th>
+                        <th>{{$item->storages->products->Nombre}}</th>
+                        <th><span class="badge badge-warning">{{$item->estado}}</span></th>
+                        <th>{{$item->almacens->nombre}}</th>
+                        <th>{{$item->created_at}}</th>
                         </tr>
+                        @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -217,8 +224,8 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Crear orden</a>
+                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Ver todas las ordenes</a>
               </div>
               <!-- /.card-footer -->
             </div>

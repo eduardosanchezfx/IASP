@@ -83,6 +83,7 @@
             <a href="{{ route('Almacenes.edit',$almacen->id)}}" class=" btn btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Editar a {{$almacen->nombre}}"><i class="far fa-edit"></i></a>
             <a href="{{ route('Asignarcreate',$almacen->id)}}" class=" btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Asignar Usuarios a {{$almacen->nombre}}"><i class="fas fa-users"></i></a>
             <a href="{{ route('Almacenamientocreate',$almacen->id)}}" class=" btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Asignar Productos a {{$almacen->nombre}}"><i class="fas fa-cart-arrow-down"></i></a>
+            <a href="{{ route('Enviarcreate',['almacen'=>$almacen->id])}}" class=" btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="Crear Envio"><i class="fas fa-dolly"></i></a>
             @endif 
             @endif
             @if(auth()->user()->level=='M')

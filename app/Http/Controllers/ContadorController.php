@@ -23,7 +23,7 @@ class ContadorController extends Controller
         if(auth()->user()->level=='S'){
         $this->contadorUsuarios=$contadorUsuarios=DB::table('users')->count();
         $this->contadorAlmacenes=$contadorAlmacenes=DB::table('almacens')->where('tipo','S')->count();
-        $this->contadorEnvios=$contadorEnvios=DB::table('envios')->count();
+        $this->contadorEnvios=$contadorEnvios=DB::table('envios')->where('estado','Pendiente')->distinct('numero_guia')->count('numero_guia');
         $this->contadorProductos=$contadorProductos=DB::table('products')->count();
         $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->count();
         $this->contadorAeropuertos=$contadorAeropuertos=DB::table('almacens')->where('tipo','A')->count();
@@ -31,7 +31,7 @@ class ContadorController extends Controller
         if(auth()->user()->level==='A'){
         $this->contadorUsuarios=$contadorUsuarios=DB::table('users')->count();
         $this->contadorAlmacenes=$contadorAlmacenes=DB::table('almacens')->where('tipo','S')->where('encargado_id',auth()->user()->id)->count();
-        $this->contadorEnvios=$contadorEnvios=DB::table('envios')->count();
+        $this->contadorEnvios=$contadorEnvios=DB::table('envios')->where('estado','Pendiente')->distinct('numero_guia')->count('numero_guia');
         $this->contadorProductos=$contadorProductos=DB::table('products')->count();
         $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->where('encargado_id',auth()->user()->id)->count();
         $this->contadorAeropuertos=$contadorAeropuertos=DB::table('almacens')->where('tipo','A')->where('encargado_id',auth()->user()->id)->count();
@@ -40,7 +40,7 @@ class ContadorController extends Controller
         $this->contadorUsuarios=$contadorUsuarios=DB::table('users')->count();
         $consulta= User::find(auth()->user()->id);
         $almacen=$consulta->almacens()->pluck('almacens.id');
-        $this->contadorEnvios=$contadorEnvios=DB::table('envios')->count();
+        $this->contadorEnvios=$contadorEnvios=DB::table('envios')->where('estado','Pendiente')->distinct('numero_guia')->count('numero_guia');
         $this->contadorProductos=$contadorProductos=DB::table('products')->count();
         for($i=0;$i<count($almacen);$i++){
         $this->contadorTiendas=$contadorTiendas=DB::table('almacens')->where('tipo','T')->whereIn('almacens.id',$almacen)->count();

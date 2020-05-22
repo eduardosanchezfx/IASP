@@ -19,9 +19,10 @@ class CreateEnviosTable extends Migration
             $table->softDeletes();
             $table->string('numero_guia');
             $table->string('comentario');
-            $table->enum('estado',['F','S','W']);//Status [F] Fallido; [S] Completado; [W] Algun error
+            $table->enum('estado',['Fallido','Completado','Defectuoso','Pendiente']);
             $table->string('cantidad_inicial');//cantidad que envia
             $table->string('cantidad_final');//cantidad que retorna 
+            $table->string('precio_salida');//cantidad que retorna 
             $table->bigInteger('user_id')->unsigned();//persona que envia
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('almacen_id')->unsigned();//almacen que envia

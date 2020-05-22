@@ -135,7 +135,7 @@
               <p>
                 Aeropuertos
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">{{$contador->contadorTiendas}}</span>
+                <span class="badge badge-info right">{{$contador->contadorAeropuertos}}</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -176,15 +176,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="/Envios" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Estado de Envio</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Envios Fallidos</p>
+                  <p>Lista Envios</p>
                 </a>
               </li>
             </ul>

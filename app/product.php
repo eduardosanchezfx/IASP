@@ -4,6 +4,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use App\almacen;
+use App\storage;
 
 use Illuminate\Database\Eloquent\SoftDeletes; //línea necesaria
 
@@ -15,5 +16,9 @@ class product extends Model
     public function almacen()
     {
         return $this->belongsToMany(almacen::class,'almacen_product');
+    }
+    public function storages()
+    {
+        return $this->hasMany(storage::class);
     }
 }
